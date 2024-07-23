@@ -1,11 +1,11 @@
 version: "3.8"
 services:
     frontend:
-        image: httpd 
+        image: httpd
         networks:
         - front-back
         ports:
-        - 5000:80    
+        - 5000:80
         volumes:
         - ~/class9/web:/usr/local/apache2/htdocs
         depends_on:
@@ -16,18 +16,20 @@ services:
         networks:
         - front-back
         - back-db
+        ports:
+        - 6000:5000
         depends_on:
         - database
 
     database:
-        image: mariadb  
+        image: mariadb
         networks:
         - back-db
         ports:
         - 3306:3306
         volumes:
         - database:/var/lib/mysql
-        environment: 
+        environment:
         - MARIADB_ROOT_PASSWORD=1234
 networks:
     front-back:
